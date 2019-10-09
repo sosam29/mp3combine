@@ -4,11 +4,15 @@ from glob import glob
 from datetime import datetime
 
 from pydub import AudioSegment
-path =r'C:/Users/Sam/Box Sync/05 Track- 5/'
+# path =r'C:/Users/Sam/Music/Brian Tracy/The New Psychology of achievement/'
+# path =r'C:/Users/Sam/Music/Brian Tracy/The power of Self Discipine/'
+# use '/' in file path as we are using split()  
+# C:\Users\Sam\Music\Desiging your own life
+path=r'C:/Users/Sam/Music/HowToOwnYourMind/'
 foldername= path.split('/')[-2]
-
-#can use alternate between \\ or / for path
-destdir = r'C:/Users/Sam/Documents/python/playgrond/'
+#can use alternate between / or / for path
+# destdir = r'C:/Users/Sam/Documents/python/playgrond/'
+destdir = path
 # use this for whole directory
 dirlist = [s for s in os.listdir(path)]
 # use this for selected folders
@@ -19,7 +23,7 @@ print("starting combining files")
 starttime = datetime.now()
 # print(strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()))
 for dir in dirlist:
-    srcdir = path + dir +'\\'
+    srcdir = path + dir +'/'
     # srcdir = dir
     print(srcdir)
     os.chdir(srcdir)
@@ -33,8 +37,8 @@ for dir in dirlist:
     for f in os.listdir(srcdir):
         print(f)
 
-    start = timeit.timeit()
-    playlist_songs = [AudioSegment.from_mp3(mp3_file) for mp3_file in glob("*Track*.mp3")]
+    # start = timeit.timeit()
+    playlist_songs = [AudioSegment.from_mp3(mp3_file) for mp3_file in glob("*.mp3")]
     first_song = playlist_songs.pop(0)
     beginning_of_song = first_song
     playlist = beginning_of_song
@@ -52,9 +56,9 @@ for dir in dirlist:
     with open(fout,"wb") as outfile:
         playlist.export(outfile, format='mp3')
     os.rename(fout, dir+".mp3")
-    end = timeit.timeit()
-    elapsed = start - end 
-    print("time Taken>>" + str(elapsed))
+    # end = timeit.timeit()
+    # elapsed = start - end 
+    # print("time Taken>>" + str(elapsed))
 print("Done")
 print("Total Time taken:{}".format(str(datetime.now()- starttime)))
 
